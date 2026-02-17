@@ -27,7 +27,7 @@ int main() {
     printf("Quantos territorios deseja cadastrar? ");
     scanf("%d", &qtd);
 
-    // Alocação dinâmica usando calloc (limpa a memória com zeros)
+    // Alocação dinâmica usando calloc
     Territorio* mapa = (Territorio*) calloc(qtd, sizeof(Territorio));
 
     if (mapa == NULL) {
@@ -58,7 +58,7 @@ int main() {
         } else if (mapa[opAtacante].tropas < 2) {
             printf("\n[AVISO] O atacante precisa de pelo menos 2 tropas para atacar!\n");
         } else {
-            // Chamada da função de ataque usando ponteiros (endereços)
+            // Chamada da função de ataque usando ponteiros
             atacar(&mapa[opAtacante], &mapa[opDefensor]);
         }
     }
@@ -111,7 +111,7 @@ void atacar(Territorio* atacante, Territorio* defensor) {
         defensor->tropas = tropasMovidas;
         atacante->tropas -= tropasMovidas;
         
-    } else { // Este é o else da linha 116 do seu erro
+    } else { 
         printf("DEFESA VENCEU! %s perdeu 1 tropa.\n", atacante->nome);
         atacante->tropas--;
     } // <-- Faltava esta chave para fechar o else
