@@ -14,3 +14,24 @@ typedef struct {
 // Variáveis globais para controle do inventário
 Item mochila[MAX_ITENS];
 int totalItens = 0;
+
+// Protótipos das funções
+void inserirItem();
+void removerItem();
+void listarItens();
+void buscarItem();
+void limparBuffer();
+
+int main() {
+    int opcao;
+
+    do {
+        printf("\n--- MOCHILA DE LOOT ---\n");
+        printf("1. Adicionar Item\n");
+        printf("2. Remover Item\n");
+        printf("3. Buscar Item\n");
+        printf("4. Listar Tudo\n");
+        printf("0. Sair\n");
+        printf("Escolha uma acao: ");
+        scanf("%d", &opcao);
+        limparBuffer();
