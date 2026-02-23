@@ -61,3 +61,62 @@ void jogarPeca(FilaPecas *f) {
     }
     Peca removida = f->itens[f->frente];
     printf("\n>>> Voce jogou a peca [%c %d]!\n", removida.nome, removida.id);
+
+    // Move a frente de forma circular
+    f->frente = (f->frente + 1) % TAMANHO_FILA;
+    f->total_elementos--;
+}
+
+// Exibe o estado visual da fila para o jogador
+void exibirFila(FilaPecas *f) {
+    printf("\nFila de pecas: ");
+    if (filaVazia(f)) {
+        printf("[ VAZIA ]");
+    } else {
+        for (int i = 0; i < f->total_elementos; i++) {
+            // Calcula o índice real considerando a circularidade
+            int indice = (f->frente + i) % TAMANHO_FILA;
+            printf("[%c %d] ", f->itens[indice].nome, f->itens[indice].id);
+        }
+    }
+    printf("\n------------------------------------\n");
+}
+
+int main() {
+    srand(time(NULL)); // Semente para aleatoriedade
+    FilaPecas fila;
+    int opcao;
+
+    inicializarFila(&fila);
+
+    // Inicializa a fila com 5 elementos conforme requisito
+    for (int i = 0; i < TAMANHO_FILA; i++) {
+        inserirPeca(&fila);
+    }
+
+    do {
+        exibirFila(&fila);
+        printf("Opcoes de acao:\n");
+        printf("1 - Jogar peca (dequeue)\n");
+        printf("2 - Inserir nova peca (enqueue)\n");
+        printf("0 - Sair\n");
+        printf("Escolha: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                jogarPeca(&fila);
+                break;
+            case 2:
+                inserirPeca(&fila);
+                break;
+            case 0:
+                printf("Encerrando sistema da ByteBros...\n");
+                break;
+            default:
+                printf("Opcao invalida!\n");
+        }
+    } while (opcao != 0);
+
+    return 0;
+}
