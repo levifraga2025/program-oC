@@ -107,3 +107,18 @@ void trocaMultipla(FilaPecas *f, PilhaReserva *p) {
         }
     }
 }
+
+// Troca Toda a Reserva (Inversão/Reversão)
+// Move todos da reserva para o início da fila, empurrando o resto
+void trocarTodaReserva(FilaPecas *f, PilhaReserva *p) {
+    if (p->topo == -1) {
+        printf("\nReserva vazia!\n");
+        return;
+    }
+    
+    printf("\n[REVERSAO] Invertendo reserva para a fila...\n");
+    while (p->topo > -1) {
+        // Troca o topo da pilha com a frente da fila
+        Peca temp = f->itens[f->frente];
+        f->itens[f->frente] = p->itens[p->topo];
+        p->itens[p->topo] = temp;
