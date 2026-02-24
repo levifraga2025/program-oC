@@ -60,3 +60,28 @@ void jogarPeca(FilaPecas *f) {
     // Repõe automaticamente para manter a fila cheia
     inserirFila(f);
 }
+// Reservar Peça (Move da Fila para a Pilha - PUSH)
+void reservarPeca(FilaPecas *f, PilhaReserva *p) {
+    if (f->total_elementos == 0) {
+        printf("\nFila vazia!\n");
+        return;
+    }
+    if (p->topo == TAMANHO_PILHA - 1) {
+        printf("\nReserva (Pilha) cheia!\n");
+        return;
+    }
+
+    // Pega a peça da frente da fila
+    Peca pecaReservada = f->itens[f->frente];
+    f->frente = (f->frente + 1) % TAMANHO_FILA;
+    f->total_elementos--;
+
+    // Coloca na pilha
+    p->topo++;
+    p->itens[p->topo] = pecaReservada;
+    
+    printf("\n[RESERVA] Peca [%c %d] movida para a reserva.\n", pecaReservada.nome, pecaReservada.id);
+    
+    // Repõe a fila
+    inserirFila(f);
+}
