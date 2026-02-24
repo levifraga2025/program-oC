@@ -21,3 +21,28 @@ typedef struct {
     Peca itens[TAMANHO_PILHA];
     int topo;
 } PilhaReserva;
+
+// --- FUNÇÕES DE APOIO ---
+
+void inicializarFila(FilaPecas *f) {
+    f->frente = 0;
+    f->tras = -1;
+    f->total_elementos = 0;
+}
+
+void inicializarPilha(PilhaReserva *p) {
+    p->topo = -1;
+}
+
+void gerarPecaAleatoria(Peca *p) {
+    p->nome = 'A' + (rand() % 26);
+    p->id = rand() % 100; // Aumentei o range para melhor visualização
+}
+
+void inserirFila(FilaPecas *f) {
+    if (f->total_elementos < TAMANHO_FILA) {
+        f->tras = (f->tras + 1) % TAMANHO_FILA;
+        gerarPecaAleatoria(&f->itens[f->tras]);
+        f->total_elementos++;
+    }
+}
