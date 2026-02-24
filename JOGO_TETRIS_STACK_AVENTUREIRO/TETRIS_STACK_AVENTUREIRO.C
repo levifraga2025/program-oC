@@ -45,3 +45,18 @@ void inserirFila(FilaPecas *f) {
         f->total_elementos++;
     }
 }
+// --- LOGICA DO JOGO ---
+void jogarPeca(FilaPecas *f) {
+    if (f->total_elementos == 0) {
+        printf("\nErro: Nao ha pecas na fila!\n");
+        return;
+    }
+    Peca p = f->itens[f->frente];
+    printf("\n[JOGADA] Voce usou a peca: [%c %d]\n", p.nome, p.id);
+    
+    f->frente = (f->frente + 1) % TAMANHO_FILA;
+    f->total_elementos--;
+    
+    // Repõe automaticamente para manter a fila cheia
+    inserirFila(f);
+}
