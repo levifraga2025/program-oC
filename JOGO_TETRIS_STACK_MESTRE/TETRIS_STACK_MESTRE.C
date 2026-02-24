@@ -46,3 +46,45 @@ void inserirFila(FilaPecas *f) {
         f->total_elementos++;
     }
 }
+
+// --- LOGICA DO JOGO ---
+
+void jogarPeca(FilaPecas *f) {
+    if (f->total_elementos == 0) {
+        printf("\nErro: Fila vazia!\n");
+        return;
+    }
+    Peca p = f->itens[f->frente];
+    printf("\n[JOGADA] Voce usou a peca da fila: [%c %d]\n", p.nome, p.id);
+    f->frente = (f->frente + 1) % TAMANHO_FILA;
+    f->total_elementos--;
+    inserirFila(f);
+}
+
+void reservarPeca(FilaPecas *f, PilhaReserva *p) {
+    if (p->topo == TAMANHO_PILHA - 1) {
+        printf("\nErro: Reserva cheia!\n");
+        return;
+    }
+    Peca pecaReservada = f->itens[f->frente];
+    f->frente = (f->frente + 1) % TAMANHO_FILA;
+    f->total_elementos--;
+    
+    p->topo++;
+    p->itens[p->topo] = pecaReservada;
+    printf("\n[RESERVA] [%c %d] movida para a reserva.\n", pecaReservada.nome, pecaReservada.id);
+    inserirFila(f);
+}
+
+//Troca Direta: Troca a peça da frente da fila com o topo da pilha
+void trocarPecaAtual(FilaPecas *f, PilhaReserva *p) {
+    if (f->total_elementos == 0 || p->topo == -1) {
+        printf("\nErro: Fila ou Pilha vazia para troca!\n");
+        return;
+    }
+    Peca temp = f->itens[f->frente];
+    f->itens[f->frente] = p->itens[p->topo];
+    p->itens[p->topo] = temp;
+    printf("\n[TROCA] Pecas trocadas com sucesso!\n");
+}
+
