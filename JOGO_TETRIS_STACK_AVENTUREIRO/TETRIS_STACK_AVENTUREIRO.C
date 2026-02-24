@@ -115,3 +115,38 @@ void exibirEstado(FilaPecas *f, PilhaReserva *p) {
     else printf("[%c %d]", p->itens[p->topo].nome, p->itens[p->topo].id);
     printf("\n------------------------------\n");
 }
+
+int main() {
+    srand(time(NULL));
+    FilaPecas fila;
+    PilhaReserva reserva;
+    int opcao;
+
+    inicializarFila(&fila);
+    inicializarPilha(&reserva);
+
+    // Inicializa a fila com peças automáticas
+    for (int i = 0; i < TAMANHO_FILA; i++) {
+        inserirFila(&fila);
+    }
+
+    do {
+        exibirEstado(&fila, &reserva);
+        printf("1 - Jogar peca da fila\n");
+        printf("2 - Reservar peca atual\n");
+        printf("3 - Usar peca da reserva\n");
+        printf("0 - Sair\n");
+        printf("Escolha: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1: jogarPeca(&fila); break;
+            case 2: reservarPeca(&fila, &reserva); break;
+            case 3: usarReserva(&reserva); break;
+            case 0: printf("Saindo...\n"); break;
+            default: printf("Opcao invalida!\n");
+        }
+    } while (opcao != 0);
+
+    return 0;
+}
