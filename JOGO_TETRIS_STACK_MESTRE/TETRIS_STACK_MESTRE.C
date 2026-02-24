@@ -122,3 +122,60 @@ void trocarTodaReserva(FilaPecas *f, PilhaReserva *p) {
         Peca temp = f->itens[f->frente];
         f->itens[f->frente] = p->itens[p->topo];
         p->itens[p->topo] = temp;
+
+        f->frente = (f->frente + 1) % TAMANHO_FILA;
+        p->topo--; // Remove da pilha conforme integra na fila
+    }
+}
+
+void exibirEstado(FilaPecas *f, PilhaReserva *p) {
+    printf("\n======= STATUS DO JOGO =======\n");
+    printf("FILA (Proximas): ");
+    for (int i = 0; i < f->total_elementos; i++) {
+        int idx = (f->frente + i) % TAMANHO_FILA;
+        printf("[%c %d] ", f->itens[idx].nome, f->itens[idx].id);
+    }
+    
+    printf("\nRESERVA (Pilha): ");
+    if (p->topo == -1) printf("[ VAZIA ]");
+    for (int i = p->topo; i >= 0; i--) {
+        printf("[%c %d] ", p->itens[i].nome, p->itens[i].id);
+    }
+    printf("\n------------------------------\n");
+}
+
+int main() {
+    srand(time(NULL));
+    FilaPecas fila;
+    PilhaReserva reserva;
+    int opcao;
+
+    inicializarFila(&fila);
+    inicializarPilha(&reserva);
+
+    for (int i = 0; i < TAMANHO_FILA; i++) inserirFila(&fila);
+
+    do {
+        exibirEstado(&fila, &reserva);
+        printf("1 - Jogar peca (Fila)\n");
+        printf("2 - Reservar peca (Fila -> Pilha)\n");
+        printf("3 - Trocar peca atual (Fila <-> Topo Pilha)\n");
+        printf("4 - Troca Multipla\n");
+        printf("5 - Trocar TODA reserva (Reversao)\n");
+        printf("0 - Sair\n");
+        printf("Escolha: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1: jogarPeca(&fila); break;
+            case 2: reservarPeca(&fila, &reserva); break;
+            case 3: trocarPecaAtual(&fila, &reserva); break;
+            case 4: trocaMultipla(&fila, &reserva); break;
+            case 5: trocarTodaReserva(&fila, &reserva); break;
+            case 0: break;
+            default: printf("Invalido!\n");
+        }
+    } while (opcao != 0);
+
+    return 0;
+}
