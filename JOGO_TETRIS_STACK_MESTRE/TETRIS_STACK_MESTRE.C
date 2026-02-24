@@ -88,3 +88,22 @@ void trocarPecaAtual(FilaPecas *f, PilhaReserva *p) {
     printf("\n[TROCA] Pecas trocadas com sucesso!\n");
 }
 
+//Troca Múltipla: Troca N elementos (enquanto houver espaço/itens)
+void trocaMultipla(FilaPecas *f, PilhaReserva *p) {
+    int qtd;
+    printf("Quantas trocas deseja realizar? ");
+    scanf("%d", &qtd);
+
+    for (int i = 0; i < qtd; i++) {
+        if (p->topo >= i && i < f->total_elementos) {
+            int idxFila = (f->frente + i) % TAMANHO_FILA;
+            int idxPilha = p->topo - i;
+            Peca temp = f->itens[idxFila];
+            f->itens[idxFila] = p->itens[idxPilha];
+            p->itens[idxPilha] = temp;
+        } else {
+            printf("\nLimite de troca atingido no item %d.\n", i + 1);
+            break;
+        }
+    }
+}
