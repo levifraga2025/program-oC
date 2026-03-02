@@ -35,3 +35,23 @@ void explorarSalas(Sala *raiz) {
             printf("Voce chegou a um beco sem saida ou ao fim da pista. Exploracao concluida!\n");
             break;
         }
+
+        printf("Caminhos disponiveis: ");
+        if (atual->esquerda) printf("[e] Esquerda: %s  ", atual->esquerda->nome);
+        if (atual->direita) printf("[d] Direita: %s", atual->direita->nome);
+        
+        printf("\nEscolha sua direcao (e/d) ou [s] para sair: ");
+        scanf(" %c", &escolha);
+
+        if (escolha == 's') {
+            printf("Saindo da investigacao...\n");
+            break;
+        } else if (escolha == 'e' && atual->esquerda != NULL) {
+            atual = atual->esquerda;
+        } else if (escolha == 'd' && atual->direita != NULL) {
+            atual = atual->direita;
+        } else {
+            printf("Caminho invalido! Tente novamente.\n");
+        }
+    }
+}
