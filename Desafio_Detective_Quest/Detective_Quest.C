@@ -19,3 +19,19 @@ Sala* criarSala(char *nome) {
     }
     return novaSala;
 }
+
+// Função explorarSalas: Gerencia a navegação interativa do jogador
+void explorarSalas(Sala *raiz) {
+    Sala *atual = raiz;
+    char escolha;
+
+    printf("\n--- Inicio da Investigacao ---\n");
+
+    while (atual != NULL) {
+        printf("\nVoce esta na: **%s**\n", atual->nome);
+
+        // Verifica se é um nó-folha (fim do caminho)
+        if (atual->esquerda == NULL && atual->direita == NULL) {
+            printf("Voce chegou a um beco sem saida ou ao fim da pista. Exploracao concluida!\n");
+            break;
+        }
