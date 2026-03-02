@@ -8,3 +8,14 @@ typedef struct Sala {
     struct Sala *esquerda;
     struct Sala *direita;
 } Sala;
+
+// Função criarSala: Aloca memória e inicializa um novo cômodo
+Sala* criarSala(char *nome) {
+    Sala *novaSala = (Sala*)malloc(sizeof(Sala));
+    if (novaSala != NULL) {
+        strcpy(novaSala->nome, nome);
+        novaSala->esquerda = NULL;
+        novaSala->direita = NULL;
+    }
+    return novaSala;
+}
