@@ -55,3 +55,32 @@ void explorarSalas(Sala *raiz) {
         }
     }
 }
+
+int main() {
+    // Montagem automática do mapa da mansão (Estrutura da Árvore)
+    //         Hall
+    //        /    \
+    //    Sala    Cozinha
+    //    /  \       \
+    // Jardim Biblioteca Quarto
+    
+    Sala *hall = criarSala("Hall de Entrada");
+    hall->esquerda = criarSala("Sala de Estar");
+    hall->direita = criarSala("Cozinha");
+    
+    hall->esquerda->esquerda = criarSala("Jardim de Inverno");
+    hall->esquerda->direita = criarSala("Biblioteca");
+    
+    hall->direita->direita = criarSala("Quarto do Suspeito");
+
+    // Início do jogo
+    printf("Bem-vindo ao Detective Quest!\n");
+    printf("Explore a mansao para encontrar pistas e desvendar o misterio.");
+    
+    explorarSalas(hall);
+
+    // Nota: Em um sistema real, aqui teríamos uma função para liberar a memória (free)
+    printf("\nObrigado por jogar!\n");
+
+    return 0;
+}
